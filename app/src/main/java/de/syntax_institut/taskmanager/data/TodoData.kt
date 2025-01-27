@@ -12,7 +12,5 @@ var todoSamples = listOf<TodoData>(
     TodoData(title = "Eintrag 5"),
     TodoData(title = "Eintrag 6"),
     TodoData(title = "Eintrag 7"),
-    TodoData(title = "Eintrag 8"),
-    TodoData(title = "Eintrag 9"),
-    TodoData(title = "Eintrag 10"),
-)
+
+    )

@@ -4,14 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import de.syntax_institut.taskmanager.ui.theme.TaskManagerTheme
 import de.syntax_institut.taskmanager.views.TodoListItem
 
@@ -22,10 +18,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             TaskManagerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    TodoListItem()
-                    Column(Modifier.padding(innerPadding)){
-
-                    }
+                    TodoListItem(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding)
+                    )
                 }
             }
         }
