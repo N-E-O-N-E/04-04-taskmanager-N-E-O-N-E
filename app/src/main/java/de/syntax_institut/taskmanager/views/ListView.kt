@@ -3,18 +3,10 @@ package de.syntax_institut.taskmanager.views
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeight
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardDefaults.cardElevation
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -32,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import de.syntax_institut.taskmanager.data.TodoData
-import de.syntax_institut.taskmanager.ui.theme.PurpleGrey80
 import de.syntax_institut.taskmanager.viewModels.TodoViewModel
 
 @Composable
@@ -81,39 +72,7 @@ fun TodoListItem(
 
         HorizontalDivider()
 
-        LazyColumn(
-            modifier = Modifier
-                .weight(1f)
-                .padding(top = 15.dp)
-                .padding(horizontal = 15.dp)
-        ) {
-            items(todos) {
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 10.dp)
-                        .requiredHeight(height = 60.dp),
-                    shape = RoundedCornerShape(10.dp),
-                    colors = CardDefaults.cardColors(PurpleGrey80),
-                    elevation = cardElevation(),
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(10.dp)
-                    ) {
-                        Text(it.title)
-                        Spacer(modifier = Modifier.weight(1f))
-                        Button(onClick = {
-                            viewModel.deleteNote(it)
-
-                        }) {
-                            Text("Löschen")
-                        }
-                    }
-                }
-            }
-        }
+        ItemList(modifier = Modifier.weight(1f), todos = todos)
 
         HorizontalDivider()
 
