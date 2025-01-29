@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.coding_challenges_b20_kotlinnew.CC_040403_01.Data.TodoDAO
 
 @Database(entities = [Todo::class], version = 1, exportSchema = false)
 

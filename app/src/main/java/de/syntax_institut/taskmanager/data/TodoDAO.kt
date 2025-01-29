@@ -1,4 +1,4 @@
-package com.example.coding_challenges_b20_kotlinnew.CC_040403_01.Data
+package de.syntax_institut.taskmanager.data
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import de.syntax_institut.taskmanager.data.Todo
 import kotlinx.coroutines.flow.Flow
 
 @Dao
