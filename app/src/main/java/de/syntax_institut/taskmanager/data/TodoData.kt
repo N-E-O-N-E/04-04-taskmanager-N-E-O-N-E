@@ -1,18 +1,11 @@
 package de.syntax_institut.taskmanager.data
 
-class TodoData(
-    var title: String
-)
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-var todoSamples = listOf<TodoData>(
-    TodoData(title = "Einkaufsliste schreiben"),
-    TodoData(title = "E-Mails beantworten"),
-    TodoData(title = "Projektunterlagen überprüfen"),
-    TodoData(title = "Workout planen"),
-    TodoData(title = "Freunde zum Abendessen einladen"),
-    TodoData(title = "Rechnung bezahlen"),
-    TodoData(title = "Buchkapitel lesen"),
-    TodoData(title = "Zimmer aufräumen"),
-    TodoData(title = "Arzttermin vereinbaren"),
-    TodoData(title = "Urlaubsplanung abschließen")
+@Entity(tableName = "tbl_todoList")
+data class Todo(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    var todoText: String
 )

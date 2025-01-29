@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -22,16 +21,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import de.syntax_institut.taskmanager.data.TodoData
 import de.syntax_institut.taskmanager.ui.theme.PurpleGrey80
 import de.syntax_institut.taskmanager.viewModels.TodoViewModel
 
 @Composable
 fun ItemList(
     modifier: Modifier = Modifier,
-    todos: List<TodoData>,
     viewModel: TodoViewModel = viewModel()
 ) {
+    val todoList by viewModel.listEntries.collectAsState()
+    val todoListSorted by viewModel.listEntriesSorted.collectAsState()
     val sortState by viewModel.getSortState.collectAsState(initial = false)
 
     LazyColumn(
@@ -39,7 +38,18 @@ fun ItemList(
             .padding(top = 15.dp)
             .padding(horizontal = 15.dp)
     ) {
-        items(if (sortState) todos.sortedBy { it.title } else todos) {
+        items(
+            if (sortState) {
+                todoListSorted.size
+            } else {
+                todoList.size
+            }
+        ) {
+            val item = if (sortState) {
+                todoListSorted[it]
+            } else {
+                todoList[it]
+            }
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -55,14 +65,18 @@ fun ItemList(
                         .padding(10.dp)
                 ) {
 
-                    Text(it.title, modifier = modifier.weight(1f))
-
+                    Text(item.todoText, modifier = modifier.weight(1f))
 
                     IconButton(
                         modifier = Modifier.padding(5.dp),
-                        onClick = { viewModel.deleteNote(it) }
+                        onClick = {
+                            viewModel.delete(item)
+                        }
                     ) {
-                        Icon(imageVector = Icons.Filled.Delete, contentDescription = "Trash")
+                        Icon(
+                            imageVector = Icons.Filled.Delete,
+                            contentDescription = "Trash"
+                        )
                     }
                 }
             }

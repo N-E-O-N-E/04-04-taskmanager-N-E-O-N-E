@@ -23,7 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import de.syntax_institut.taskmanager.data.TodoData
+import de.syntax_institut.taskmanager.data.Todo
 import de.syntax_institut.taskmanager.viewModels.TodoViewModel
 
 @Composable
@@ -31,7 +31,6 @@ fun TodoListItem(
     modifier: Modifier,
     viewModel: TodoViewModel = viewModel()
 ) {
-    val todos by viewModel.todos.collectAsState()
     var textInput by remember { mutableStateOf("") }
     val sortState by viewModel.getSortState.collectAsState(initial = false)
 
@@ -72,7 +71,7 @@ fun TodoListItem(
 
         HorizontalDivider()
 
-        ItemList(modifier = Modifier.weight(1f), todos = todos)
+        ItemList(modifier = Modifier.weight(1f))
 
         HorizontalDivider()
 
@@ -90,12 +89,12 @@ fun TodoListItem(
             )
             Button(
                 onClick = {
-                    var newNote = TodoData(title = textInput)
-                    viewModel.createNote(newNote)
+                    viewModel.insert(Todo(todoText = textInput))
+                    textInput = "" //Leeren
                 },
                 modifier = Modifier.padding(start = 8.dp)
             ) {
-                Text("Hinzufügen")
+                Text(" ADD ")
             }
         }
     }

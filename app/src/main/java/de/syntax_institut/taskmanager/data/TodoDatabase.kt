@@ -1,0 +1,25 @@
+package com.example.coding_challenges_b20_kotlinnew.CC_040403_01.Data
+
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import de.syntax_institut.taskmanager.data.Todo
+
+@Database(entities = [Todo::class], version = 1, exportSchema = false)
+
+abstract class TodoDatabase : RoomDatabase() {
+    abstract fun toDoDatabase(): TodoDAO
+
+    companion object {
+        @Volatile
+        private var Instance: TodoDatabase? = null
+
+        fun getDatabase(context: Context): TodoDatabase {
+            return Instance ?: synchronized(this) {
+                Room.databaseBuilder(context, TodoDatabase::class.java, "toDo_database")
+                    .build().also { Instance = it }
+            }
+        }
+    }
+}
