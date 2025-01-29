@@ -44,6 +44,7 @@ fun ItemList(
             } else {
                 todoList.size
             }
+
         ) {
             val item = if (sortState) {
                 todoListSorted[it]

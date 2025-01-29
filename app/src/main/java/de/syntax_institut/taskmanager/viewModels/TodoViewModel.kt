@@ -5,8 +5,8 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.coding_challenges_b20_kotlinnew.CC_040403_01.Data.TodoDatabase
 import de.syntax_institut.taskmanager.data.Todo
+import de.syntax_institut.taskmanager.data.TodoDatabase
 import de.syntax_institut.taskmanager.dataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
