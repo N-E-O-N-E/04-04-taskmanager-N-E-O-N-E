@@ -33,6 +33,12 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
         initialValue = emptyList()
     )
 
+    val listEntriesArchived = dao.getAllArchivedItems().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(),
+        initialValue = emptyList()
+    )
+
     fun delete(todo: Todo) {
         viewModelScope.launch { dao.delete(todo) }
     }

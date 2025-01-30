@@ -20,6 +20,9 @@ interface TodoDAO {
     @Query("SELECT * from tbl_todoList ORDER BY todoText")
     fun getAllItemsSorted(): Flow<List<Todo>>
 
+    @Query("SELECT * from tbl_todoList WHERE isArchived = 1 ORDER BY date")
+    fun getAllArchivedItems(): Flow<List<Todo>>
+
     @Delete
     suspend fun delete(todo: Todo)
 

@@ -1,5 +1,7 @@
 package de.syntax_institut.taskmanager.views
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,7 +27,9 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import de.syntax_institut.taskmanager.data.Todo
 import de.syntax_institut.taskmanager.viewModels.TodoViewModel
+import java.time.LocalDate
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TodoListItem(
     modifier: Modifier,
@@ -89,7 +93,22 @@ fun TodoListItem(
             )
             Button(
                 onClick = {
-                    viewModel.insert(Todo(todoText = textInput))
+                    var localDateTimeNow = LocalDate.now().toString()
+
+                    val filteredTitle = textInput.split(" ")
+                        .filter { it.length > 4 }
+                        .joinToString(" ")
+                        .take(35)
+
+                    viewModel.insert(
+                        Todo(
+                            todoTitle = filteredTitle.uppercase(),
+                            todoText = textInput,
+                            date = localDateTimeNow,
+                            isDone = false,
+                            isArchived = false,
+                        )
+                    )
                     textInput = "" //Leeren
                 },
                 modifier = Modifier.padding(start = 8.dp)
