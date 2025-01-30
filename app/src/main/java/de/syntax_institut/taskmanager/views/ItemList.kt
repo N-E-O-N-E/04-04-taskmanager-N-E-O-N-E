@@ -24,7 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import de.syntax_institut.taskmanager.ui.theme.PurpleGrey80
+import de.syntax_institut.taskmanager.ui.theme.WhiteAsh
 import de.syntax_institut.taskmanager.viewModels.TodoViewModel
 
 @Composable
@@ -59,7 +59,7 @@ fun ItemList(
                     .fillMaxSize()
                     .padding(vertical = 10.dp),
                 shape = RoundedCornerShape(10.dp),
-                colors = CardDefaults.cardColors(PurpleGrey80),
+                colors = CardDefaults.cardColors(WhiteAsh.copy(alpha = 0.7f)),
                 elevation = cardElevation(),
             ) {
                 Row(
@@ -74,9 +74,12 @@ fun ItemList(
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Bold
                         )
-                        HorizontalDivider()
-                        Text(item.todoText)
-                        HorizontalDivider()
+                        HorizontalDivider(Modifier.padding(vertical = 5.dp))
+
+                        Text(text = item.todoText, Modifier.padding(vertical = 5.dp))
+
+                        HorizontalDivider(Modifier.padding(vertical = 5.dp))
+
                         Text(
                             text = "Erstellt am: ${item.date}",
                             fontSize = 10.sp

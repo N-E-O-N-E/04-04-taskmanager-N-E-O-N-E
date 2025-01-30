@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -21,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,7 +33,7 @@ import java.time.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun TodoListItem(
+fun TodoList(
     modifier: Modifier,
     viewModel: TodoViewModel = viewModel()
 ) {
@@ -53,8 +55,9 @@ fun TodoListItem(
             Text(
                 modifier = Modifier
                     .weight(1f),
-                fontSize = 20.sp,
+                fontSize = 40.sp,
                 fontWeight = FontWeight.Bold,
+                color = Color.White,
                 text = "ToDo App"
             )
 
@@ -62,6 +65,7 @@ fun TodoListItem(
                 modifier = Modifier,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
+                color = Color.White,
                 text = if (sortState) "Alphabetisch" else "Standard"
             )
 
@@ -111,9 +115,10 @@ fun TodoListItem(
                     )
                     textInput = "" //Leeren
                 },
-                modifier = Modifier.padding(start = 8.dp)
+                modifier = Modifier.padding(start = 8.dp),
+                colors = ButtonDefaults.buttonColors(Color(0xFFFDB999))
             ) {
-                Text(" ADD ")
+                Text("SAVE", color = Color.Black)
             }
         }
     }
