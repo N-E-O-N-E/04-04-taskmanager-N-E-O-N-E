@@ -1,6 +1,7 @@
 package de.syntax_institut.taskmanager.views
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,7 +22,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -49,88 +53,108 @@ fun ArchiveSheet(
             alpha = 0.4f,
             modifier = Modifier.fillMaxSize()
         )
-        LazyColumn(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(top = 15.dp)
-                .padding(horizontal = 15.dp)
-        ) {
-            items(todoListArchived.size) {
-                val item = todoListArchived[it]
+        Column(modifier = Modifier.fillMaxSize()) {
 
-                Card(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(vertical = 5.dp),
-                    shape = RoundedCornerShape(5.dp),
-                    colors = CardDefaults.cardColors(WhiteAsh.copy(alpha = 0.7f)),
-                    elevation = cardElevation(),
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text("Archiv löschen!", color = Color.Red, fontSize = 15.sp)
+                IconButton(onClick = {
+                    viewModel.deleteArchived(todoListArchived)
+                    onDismiss()
+                }) {
+                    Image(
+                        painter = painterResource(id = R.drawable.baseline_delete_forever_24),
+                        contentDescription = "Close",
+                        colorFilter = ColorFilter.tint(Color.Red)
+                    )
+                }
+            }
 
-                    ) {
-                    Row(
+            LazyColumn(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(top = 15.dp)
+                    .padding(horizontal = 15.dp)
+            ) {
+                items(todoListArchived.size) {
+                    val item = todoListArchived[it]
+
+                    Card(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(10.dp)
-                    ) {
+                            .padding(vertical = 5.dp),
+                        shape = RoundedCornerShape(5.dp),
+                        colors = CardDefaults.cardColors(WhiteAsh.copy(alpha = 0.7f)),
+                        elevation = cardElevation(),
 
-                        Column(modifier = Modifier.fillMaxWidth(0.9f)) {
-                            Text(
-                                text = item.todoTitle,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold
-                            )
-                            HorizontalDivider(Modifier.padding(vertical = 5.dp))
+                        ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(10.dp)
+                        ) {
 
-                            Text(text = item.todoText, Modifier.padding(vertical = 5.dp))
+                            Column(modifier = Modifier.fillMaxWidth(0.9f)) {
+                                Text(
+                                    text = item.todoTitle,
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                HorizontalDivider(Modifier.padding(vertical = 5.dp))
 
-                            HorizontalDivider(Modifier.padding(vertical = 5.dp))
+                                Text(text = item.todoText, Modifier.padding(vertical = 5.dp))
 
-                            Text(
-                                text = "Erstellt am: ${item.date}",
-                                fontSize = 12.sp
-                            )
-                            Text(
-                                text = if (item.isArchived) "Archivierte Nachricht" else " ",
-                                fontSize = 12.sp
-                            )
-                        }
+                                HorizontalDivider(Modifier.padding(vertical = 5.dp))
 
-                        Column {
-                            IconButton(
-                                modifier = Modifier.padding(5.dp),
-                                onClick = {
-                                    viewModel.delete(item)
-                                }
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Filled.Delete,
-                                    contentDescription = "Trash"
+                                Text(
+                                    text = "Erstellt am: ${item.date}",
+                                    fontSize = 12.sp
+                                )
+                                Text(
+                                    text = if (item.isArchived) "Archivierte Nachricht" else " ",
+                                    fontSize = 12.sp
                                 )
                             }
 
-                            IconButton(
-                                modifier = Modifier.padding(5.dp),
-                                onClick = {
-                                    val newItem = Todo(
-                                        id = item.id,
-                                        todoTitle = item.todoTitle,
-                                        todoText = item.todoText,
-                                        date = item.date,
-                                        isDone = item.isDone,
-                                        isArchived = true
+                            Column {
+                                IconButton(
+                                    modifier = Modifier.padding(5.dp),
+                                    onClick = {
+                                        val newItem = Todo(
+                                            id = item.id,
+                                            todoTitle = item.todoTitle,
+                                            todoText = item.todoText,
+                                            date = item.date,
+                                            isDone = item.isDone,
+                                            isArchived = false
+                                        )
+                                        viewModel.update(newItem)
+                                    }
+                                ) {
+                                    Image(
+                                        painter = painterResource(id = R.drawable.baseline_unarchive_24),
+                                        contentDescription = "Unarchive"
                                     )
-                                    viewModel.update(newItem)
                                 }
-                            ) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.baseline_archive_24),
-                                    contentDescription = "Archive"
-                                )
+
+                                IconButton(
+                                    modifier = Modifier.padding(5.dp),
+                                    onClick = {
+                                        viewModel.delete(item)
+                                    }
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Filled.Delete,
+                                        contentDescription = "Trash"
+                                    )
+                                }
                             }
                         }
                     }
                 }
-
             }
         }
     }

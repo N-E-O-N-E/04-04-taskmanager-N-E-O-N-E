@@ -44,6 +44,16 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch { dao.delete(todo) }
     }
 
+    fun deleteArchived(listArchivedEntries: List<Todo>) {
+        viewModelScope.launch {
+            for (item in listArchivedEntries) {
+                if (item.isArchived) {
+                    dao.delete(item)
+                }
+            }
+        }
+    }
+
     fun insert(todo: Todo) {
         viewModelScope.launch { dao.insert(todo) }
     }
