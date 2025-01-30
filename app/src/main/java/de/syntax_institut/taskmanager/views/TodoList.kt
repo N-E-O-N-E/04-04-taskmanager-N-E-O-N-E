@@ -58,7 +58,7 @@ fun TodoList(
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
-                text = "ToDo App"
+                text = "LittleToDo"
             )
 
             Text(

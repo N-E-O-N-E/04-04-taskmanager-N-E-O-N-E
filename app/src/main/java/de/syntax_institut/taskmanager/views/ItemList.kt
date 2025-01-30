@@ -71,7 +71,7 @@ fun ItemList(
                     Column(modifier = Modifier.fillMaxWidth(0.9f)) {
                         Text(
                             text = item.todoTitle,
-                            fontSize = 15.sp,
+                            fontSize = 16.sp,
                             fontWeight = FontWeight.Bold
                         )
                         HorizontalDivider(Modifier.padding(vertical = 5.dp))
@@ -82,7 +82,7 @@ fun ItemList(
 
                         Text(
                             text = "Erstellt am: ${item.date}",
-                            fontSize = 10.sp
+                            fontSize = 12.sp
                         )
                     }
 
