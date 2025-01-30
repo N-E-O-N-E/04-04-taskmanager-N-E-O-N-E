@@ -18,6 +18,7 @@ private val DATASTORE_SORT_KEY = booleanPreferencesKey("sortList")
 
 class TodoViewModel(application: Application) : AndroidViewModel(application) {
 
+
     // Datenbank
     private val dao = TodoDatabase.getDatabase(application.applicationContext).toDoDatabase()
 
@@ -33,7 +34,7 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
         initialValue = emptyList()
     )
 
-    val listEntriesArchived = dao.getAllArchivedItems().stateIn(
+    val listArchivedEntries = dao.getAllArchivedItems().stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(),
         initialValue = emptyList()
@@ -45,6 +46,10 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
 
     fun insert(todo: Todo) {
         viewModelScope.launch { dao.insert(todo) }
+    }
+
+    fun update(todo: Todo) {
+        viewModelScope.launch { dao.update(todo) }
     }
 
     // Sortieren

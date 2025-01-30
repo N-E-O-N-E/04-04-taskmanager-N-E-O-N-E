@@ -1,5 +1,6 @@
 package de.syntax_institut.taskmanager.views
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,17 +21,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import de.syntax_institut.taskmanager.R
+import de.syntax_institut.taskmanager.data.Todo
 import de.syntax_institut.taskmanager.ui.theme.WhiteAsh
 import de.syntax_institut.taskmanager.viewModels.TodoViewModel
 
 @Composable
 fun ItemList(
     modifier: Modifier = Modifier,
-    viewModel: TodoViewModel = viewModel()
+    viewModel: TodoViewModel = viewModel(),
 ) {
     val todoList by viewModel.listEntries.collectAsState()
     val todoListSorted by viewModel.listEntriesSorted.collectAsState()
@@ -61,7 +65,8 @@ fun ItemList(
                 shape = RoundedCornerShape(10.dp),
                 colors = CardDefaults.cardColors(WhiteAsh.copy(alpha = 0.7f)),
                 elevation = cardElevation(),
-            ) {
+
+                ) {
                 Row(
                     modifier = Modifier
                         .fillMaxSize()
@@ -84,18 +89,44 @@ fun ItemList(
                             text = "Erstellt am: ${item.date}",
                             fontSize = 12.sp
                         )
+                        Text(
+                            text = if (item.isArchived) "Archivierte Nachricht" else " ",
+                            fontSize = 12.sp
+                        )
                     }
 
-                    IconButton(
-                        modifier = Modifier.padding(5.dp),
-                        onClick = {
-                            viewModel.delete(item)
+                    Column {
+                        IconButton(
+                            modifier = Modifier.padding(5.dp),
+                            onClick = {
+                                viewModel.delete(item)
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Delete,
+                                contentDescription = "Trash"
+                            )
                         }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.Delete,
-                            contentDescription = "Trash"
-                        )
+
+                        IconButton(
+                            modifier = Modifier.padding(5.dp),
+                            onClick = {
+                                val newItem = Todo(
+                                    id = item.id,
+                                    todoTitle = item.todoTitle,
+                                    todoText = item.todoText,
+                                    date = item.date,
+                                    isDone = item.isDone,
+                                    isArchived = true
+                                )
+                                viewModel.update(newItem)
+                            }
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.baseline_archive_24),
+                                contentDescription = "Archive"
+                            )
+                        }
                     }
                 }
             }
