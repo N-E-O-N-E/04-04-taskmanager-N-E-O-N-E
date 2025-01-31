@@ -30,9 +30,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             TaskManagerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Box(modifier = Modifier.padding(innerPadding)) {
+                    Box(modifier = Modifier.padding()) {
                         Image(
-                            painter = painterResource(id = R.drawable.wall2),
+                            painter = painterResource(id = R.drawable.wallpaper),
                             contentScale = ContentScale.Crop,
                             contentDescription = "Wallpaper",
                             modifier = Modifier.fillMaxSize()

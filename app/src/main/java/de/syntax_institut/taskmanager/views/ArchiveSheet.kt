@@ -47,7 +47,7 @@ fun ArchiveSheet(
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(id = R.drawable.wall2),
+            painter = painterResource(id = R.drawable.wallpaper),
             contentScale = ContentScale.Crop,
             contentDescription = "Wallpaper",
             alpha = 0.4f,
