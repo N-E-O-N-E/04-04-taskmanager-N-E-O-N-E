@@ -24,6 +24,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
@@ -34,6 +35,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import de.syntax_institut.taskmanager.R
 import de.syntax_institut.taskmanager.data.Todo
+import de.syntax_institut.taskmanager.ui.theme.Blue
+import de.syntax_institut.taskmanager.ui.theme.DarkRed
 import de.syntax_institut.taskmanager.ui.theme.WhiteAsh
 import de.syntax_institut.taskmanager.viewModels.TodoViewModel
 
@@ -50,7 +53,7 @@ fun ArchiveSheet(
             painter = painterResource(id = R.drawable.wallpaper),
             contentScale = ContentScale.Crop,
             contentDescription = "Wallpaper",
-            alpha = 0.4f,
+            alpha = 0.3f,
             modifier = Modifier.fillMaxSize()
         )
         Column(modifier = Modifier.fillMaxSize()) {
@@ -60,15 +63,17 @@ fun ArchiveSheet(
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("Archiv löschen!", color = Color.Red, fontSize = 15.sp)
-                IconButton(onClick = {
+                Text("Gesamtes Archiv löschen!", color = Color.Black, fontSize = 15.sp)
+                IconButton(
+                    modifier = Modifier.scale(1.5f),
+                    onClick = {
                     viewModel.deleteArchived(todoListArchived)
                     onDismiss()
                 }) {
                     Image(
                         painter = painterResource(id = R.drawable.baseline_delete_forever_24),
                         contentDescription = "Close",
-                        colorFilter = ColorFilter.tint(Color.Red)
+                        colorFilter = ColorFilter.tint(DarkRed)
                     )
                 }
             }
@@ -87,7 +92,7 @@ fun ArchiveSheet(
                             .fillMaxSize()
                             .padding(vertical = 5.dp),
                         shape = RoundedCornerShape(5.dp),
-                        colors = CardDefaults.cardColors(WhiteAsh.copy(alpha = 0.7f)),
+                        colors = CardDefaults.cardColors(WhiteAsh.copy(alpha = 0.8f)),
                         elevation = cardElevation(),
 
                         ) {
@@ -115,7 +120,7 @@ fun ArchiveSheet(
                                 )
                                 Text(
                                     text = if (item.isArchived) "Archivierte Nachricht" else " ",
-                                    fontSize = 12.sp
+                                    fontSize = 12.sp, color = DarkRed,
                                 )
                             }
 
@@ -136,7 +141,8 @@ fun ArchiveSheet(
                                 ) {
                                     Image(
                                         painter = painterResource(id = R.drawable.baseline_unarchive_24),
-                                        contentDescription = "Unarchive"
+                                        contentDescription = "Unarchive",
+                                        colorFilter = ColorFilter.tint(Blue),
                                     )
                                 }
 
@@ -148,7 +154,8 @@ fun ArchiveSheet(
                                 ) {
                                     Icon(
                                         imageVector = Icons.Filled.Delete,
-                                        contentDescription = "Trash"
+                                        contentDescription = "Trash",
+                                        tint = DarkRed
                                     )
                                 }
                             }

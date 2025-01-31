@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             TaskManagerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Box(modifier = Modifier.padding()) {
+                    Box(modifier = Modifier.padding(innerPadding)) {
                         Image(
                             painter = painterResource(id = R.drawable.wallpaper),
                             contentScale = ContentScale.Crop,
@@ -40,7 +40,6 @@ class MainActivity : ComponentActivity() {
                         TodoList(
                             modifier = Modifier
                                 .fillMaxSize()
-                                .padding(innerPadding)
                         )
                     }
                 }

@@ -6,10 +6,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -30,7 +33,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -39,6 +41,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import de.syntax_institut.taskmanager.R
 import de.syntax_institut.taskmanager.data.Todo
+import de.syntax_institut.taskmanager.ui.theme.ArchivIcon
 import de.syntax_institut.taskmanager.ui.theme.Blue
 import de.syntax_institut.taskmanager.ui.theme.White
 import de.syntax_institut.taskmanager.viewModels.TodoViewModel
@@ -71,62 +74,116 @@ fun TodoList(
     }
 
     Column(
-        modifier = modifier
-            .fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize(1f)
+            .padding(0.dp)
     ) {
 
         Row(
             modifier = Modifier
+                .fillMaxWidth(1f)
                 .padding(horizontal = 15.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.End
         )
         {
             Text(
                 modifier = Modifier
-                    .weight(1f),
-                fontSize = 35.sp,
+                    .weight(1f)
+                    .padding(vertical = 15.dp),
+                fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.White,
+                color = White,
                 text = "QuickNotes"
             )
 
+            IconButton(
+                modifier = Modifier.padding(0.dp),
+                onClick = {
+                    showArchiveSheetState = true
+                }
+            ) {
+                Image(
+                    modifier = Modifier.scale(1.6f),
+                    painter = painterResource(id = R.drawable.baseline_archive_24),
+                    contentDescription = "Archive",
+                    colorFilter = ColorFilter.tint(ArchivIcon),
+                )
+            }
+        }
+
+        HorizontalDivider(
+            thickness = 3.dp,
+            color = White.copy(alpha = 0.5f),
+            modifier = Modifier.padding(0.dp)
+        )
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(1f)
+                .padding(horizontal = 15.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.End
+        )
+        {
+
+            OutlinedTextField(
+                value = textInput,
+                onValueChange = { textInput = it },
+                modifier = Modifier
+                    .width(180.dp)
+                    .height(55.dp)
+                    .align(Alignment.Top),
+                shape = ButtonDefaults.elevatedShape,
+                singleLine = false,
+                colors = outlinedTextFieldColors(
+                    focusedBorderColor = White,
+                    unfocusedBorderColor = White,
+                    focusedContainerColor = White.copy(alpha = 0.5f),
+                    unfocusedContainerColor = White.copy(alpha = 0.5f),
+                ),
+                placeholder = { Text("Suche") }
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+
             Text(
                 modifier = Modifier,
-                fontSize = 15.sp,
+                fontSize = 12.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.White,
-                text = if (sortState) "NEUE" else "ALTE"
+                color = White,
+                text = if (sortState) "Neue zuerst" else "Filter"
             )
 
             Switch(modifier = Modifier
-                .padding(start = 10.dp)
-                .scale(0.8f),
+                .padding(horizontal = 0.dp)
+                .scale(0.6f),
                 checked = sortState,
                 onCheckedChange = {
                     viewModel.saveSortState(it)
                 }
             )
 
-            IconButton(
-                modifier = Modifier.padding(5.dp),
-                onClick = {
-                    showArchiveSheetState = true
-                }
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.baseline_archive_24),
-                    contentDescription = "Archive",
-                    colorFilter = ColorFilter.tint(Color.White)
-                )
-            }
+            Image(
+                painter = painterResource(id = R.drawable.baseline_sort_24),
+                contentDescription = "Archive",
+                colorFilter = ColorFilter.tint(White)
+            )
         }
 
-        HorizontalDivider(thickness = 8.dp, color = White.copy(alpha = 0.5f))
+        HorizontalDivider(
+            thickness = 1.dp,
+            color = White.copy(alpha = 0.5f),
+            modifier = Modifier.padding(0.dp)
+        )
 
-        ItemList(modifier = Modifier.weight(1f))
+        ItemList(modifier = modifier.weight(1f))
 
-        HorizontalDivider(thickness = 8.dp, color = White.copy(alpha = 0.5f))
+        HorizontalDivider(
+            thickness = 3.dp,
+            color = White.copy(alpha = 0.5f),
+            modifier = Modifier.padding(0.dp)
+        )
 
         Row(
             modifier = Modifier

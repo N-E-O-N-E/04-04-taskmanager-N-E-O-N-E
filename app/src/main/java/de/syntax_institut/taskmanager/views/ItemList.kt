@@ -18,6 +18,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -25,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import de.syntax_institut.taskmanager.R
 import de.syntax_institut.taskmanager.data.Todo
+import de.syntax_institut.taskmanager.ui.theme.Blue
 import de.syntax_institut.taskmanager.ui.theme.WhiteAsh
 import de.syntax_institut.taskmanager.viewModels.TodoViewModel
 
@@ -59,8 +62,8 @@ fun ItemList(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(vertical = 10.dp),
-                shape = RoundedCornerShape(10.dp),
-                colors = CardDefaults.cardColors(WhiteAsh.copy(alpha = 0.7f)),
+                shape = RoundedCornerShape(15.dp),
+                colors = CardDefaults.cardColors(WhiteAsh.copy(alpha = 0.80f)),
                 elevation = cardElevation(),
 
                 ) {
@@ -108,8 +111,10 @@ fun ItemList(
                             }
                         ) {
                             Image(
+                                modifier = Modifier.scale(1.0f),
                                 painter = painterResource(id = R.drawable.baseline_archive_24),
-                                contentDescription = "Archive"
+                                contentDescription = "Archive",
+                                colorFilter = ColorFilter.tint(Blue),
                             )
                         }
                     }
