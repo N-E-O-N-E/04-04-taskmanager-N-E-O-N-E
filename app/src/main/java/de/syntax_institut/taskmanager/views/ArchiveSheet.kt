@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -114,14 +115,17 @@ fun ArchiveSheet(
 
                                 HorizontalDivider(Modifier.padding(vertical = 5.dp))
 
-                                Text(
-                                    text = "Erstellt am: ${item.date}",
-                                    fontSize = 12.sp
-                                )
-                                Text(
-                                    text = if (item.isArchived) "Archivierte Nachricht" else " ",
-                                    fontSize = 12.sp, color = DarkRed,
-                                )
+                                Row {
+                                    Text(
+                                        text = "Erstellt am: ${item.date}",
+                                        fontSize = 12.sp
+                                    )
+                                    Spacer(modifier = Modifier.weight(1f))
+                                    Text(
+                                        text = if (item.isArchived) "Archiviert" else " ",
+                                        fontSize = 12.sp, color = DarkRed,
+                                    )
+                                }
                             }
 
                             Column {

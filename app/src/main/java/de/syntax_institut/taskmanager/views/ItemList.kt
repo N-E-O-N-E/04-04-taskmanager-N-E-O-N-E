@@ -60,7 +60,7 @@ fun ItemList(
             Card(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(vertical = 10.dp),
+                    .padding(vertical = 5.dp),
                 shape = RoundedCornerShape(15.dp),
                 colors = CardDefaults.cardColors(WhiteAsh.copy(alpha = 0.80f)),
                 elevation = cardElevation(),
@@ -84,14 +84,12 @@ fun ItemList(
 
                         HorizontalDivider(Modifier.padding(vertical = 5.dp))
 
-                        Text(
-                            text = "Erstellt am: ${item.date}",
-                            fontSize = 12.sp
-                        )
-                        Text(
-                            text = if (item.isArchived) "Archivierte Nachricht" else " ",
-                            fontSize = 12.sp
-                        )
+                        Row {
+                            Text(
+                                text = "Erstellt am: ${item.date}",
+                                fontSize = 12.sp
+                            )
+                        }
                     }
 
                     Column {
