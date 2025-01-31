@@ -35,15 +35,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import de.syntax_institut.taskmanager.R
 import de.syntax_institut.taskmanager.data.Todo
-import de.syntax_institut.taskmanager.ui.theme.ArchivIcon
-import de.syntax_institut.taskmanager.ui.theme.Blue
-import de.syntax_institut.taskmanager.ui.theme.White
+import de.syntax_institut.taskmanager.ui.theme.GrayAsh
+import de.syntax_institut.taskmanager.ui.theme.PanelColor
 import de.syntax_institut.taskmanager.viewModels.TodoViewModel
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -93,10 +93,11 @@ fun TodoList(
                 modifier = Modifier
                     .weight(1f)
                     .padding(vertical = 15.dp),
-                fontSize = 32.sp,
+                fontFamily = FontFamily.Cursive,
+                fontSize = 50.sp,
                 fontWeight = FontWeight.Bold,
-                color = White,
-                text = "QuickNotes"
+                color = PanelColor,
+                text = "Katana Notes "
             )
 
 
@@ -113,10 +114,10 @@ fun TodoList(
                 }
             ) {
                 Image(
-                    modifier = Modifier.scale(1.6f),
+                    modifier = Modifier.scale(1.4f),
                     painter = painterResource(id = R.drawable.baseline_search_24),
                     contentDescription = "Archive",
-                    colorFilter = ColorFilter.tint(ArchivIcon),
+                    colorFilter = ColorFilter.tint(PanelColor),
                 )
             }
 
@@ -128,17 +129,17 @@ fun TodoList(
                 }
             ) {
                 Image(
-                    modifier = Modifier.scale(1.6f),
+                    modifier = Modifier.scale(1.4f),
                     painter = painterResource(id = R.drawable.baseline_archive_24),
                     contentDescription = "Archive",
-                    colorFilter = ColorFilter.tint(ArchivIcon),
+                    colorFilter = ColorFilter.tint(PanelColor),
                 )
             }
         }
 
         HorizontalDivider(
             thickness = 3.dp,
-            color = White.copy(alpha = 0.5f),
+            color = PanelColor.copy(alpha = 0.5f),
             modifier = Modifier.padding(0.dp)
         )
 
@@ -162,10 +163,14 @@ fun TodoList(
                     shape = ButtonDefaults.elevatedShape,
                     singleLine = false,
                     colors = outlinedTextFieldColors(
-                        focusedBorderColor = White,
-                        unfocusedBorderColor = White,
-                        focusedContainerColor = White.copy(alpha = 0.5f),
-                        unfocusedContainerColor = White.copy(alpha = 0.5f),
+                        focusedPlaceholderColor = PanelColor,
+                        unfocusedPlaceholderColor = PanelColor,
+                        focusedTextColor = PanelColor,
+                        unfocusedTextColor = PanelColor,
+                        focusedBorderColor = PanelColor,
+                        unfocusedBorderColor = PanelColor,
+                        focusedContainerColor = GrayAsh.copy(alpha = 0.5f),
+                        unfocusedContainerColor = GrayAsh.copy(alpha = 0.5f),
                     ),
                     placeholder = { Text("Suche") },
                 )
@@ -177,29 +182,30 @@ fun TodoList(
                 modifier = Modifier,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold,
-                color = White,
+                color = PanelColor,
                 text = if (sortState) "Neue zuerst" else "Filter"
             )
 
-            Switch(modifier = Modifier
-                .padding(horizontal = 0.dp)
-                .scale(0.6f),
+            Switch(
+                modifier = Modifier
+                    .padding(horizontal = 0.dp)
+                    .scale(0.6f),
                 checked = sortState,
                 onCheckedChange = {
                     viewModel.saveSortState(it)
-                }
+                },
             )
 
             Image(
                 painter = painterResource(id = R.drawable.baseline_sort_24),
                 contentDescription = "Archive",
-                colorFilter = ColorFilter.tint(White)
+                colorFilter = ColorFilter.tint(PanelColor)
             )
         }
 
         HorizontalDivider(
             thickness = 1.dp,
-            color = White.copy(alpha = 0.5f),
+            color = PanelColor.copy(alpha = 0.5f),
             modifier = Modifier.padding(0.dp)
         )
 
@@ -207,7 +213,7 @@ fun TodoList(
 
         HorizontalDivider(
             thickness = 3.dp,
-            color = White.copy(alpha = 0.5f),
+            color = PanelColor.copy(alpha = 0.5f),
             modifier = Modifier.padding(0.dp)
         )
 
@@ -224,10 +230,14 @@ fun TodoList(
                 shape = ButtonDefaults.elevatedShape,
                 singleLine = false,
                 colors = outlinedTextFieldColors(
-                    focusedBorderColor = White,
-                    unfocusedBorderColor = White,
-                    focusedContainerColor = White.copy(alpha = 0.5f),
-                    unfocusedContainerColor = White.copy(alpha = 0.5f),
+                    focusedPlaceholderColor = PanelColor,
+                    unfocusedPlaceholderColor = PanelColor,
+                    focusedTextColor = PanelColor,
+                    unfocusedTextColor = PanelColor,
+                    focusedBorderColor = PanelColor,
+                    unfocusedBorderColor = PanelColor,
+                    focusedContainerColor = GrayAsh.copy(alpha = 0.5f),
+                    unfocusedContainerColor = GrayAsh.copy(alpha = 0.5f),
                 ),
                 placeholder = { Text("QuickNote hinzufügen") }
             )
@@ -253,11 +263,11 @@ fun TodoList(
                     textInput = ""
                 },
                 modifier = Modifier.padding(start = 8.dp),
-                colors = ButtonDefaults.buttonColors(Blue),
-                border = BorderStroke(1.dp, White),
+                colors = ButtonDefaults.buttonColors(GrayAsh),
+                border = BorderStroke(1.dp, PanelColor),
                 elevation = ButtonDefaults.buttonElevation(4.dp)
             ) {
-                Text("Speichern", color = White)
+                Text("Speichern", color = PanelColor)
             }
         }
     }

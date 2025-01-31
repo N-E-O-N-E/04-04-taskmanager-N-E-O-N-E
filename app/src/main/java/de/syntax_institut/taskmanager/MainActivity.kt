@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
                         Image(
-                            painter = painterResource(id = R.drawable.wallpaper),
+                            painter = painterResource(id = R.drawable.japagirl),
                             contentScale = ContentScale.Crop,
                             contentDescription = "Wallpaper",
                             modifier = Modifier.fillMaxSize()

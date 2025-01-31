@@ -28,8 +28,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import de.syntax_institut.taskmanager.R
 import de.syntax_institut.taskmanager.data.Todo
-import de.syntax_institut.taskmanager.ui.theme.Blue
-import de.syntax_institut.taskmanager.ui.theme.WhiteAsh
+import de.syntax_institut.taskmanager.ui.theme.GrayAsh
+import de.syntax_institut.taskmanager.ui.theme.PanelColor
 import de.syntax_institut.taskmanager.viewModels.TodoViewModel
 
 @Composable
@@ -62,7 +62,7 @@ fun ItemList(
                     .fillMaxSize()
                     .padding(vertical = 5.dp),
                 shape = RoundedCornerShape(15.dp),
-                colors = CardDefaults.cardColors(WhiteAsh.copy(alpha = 0.80f)),
+                colors = CardDefaults.cardColors(PanelColor.copy(alpha = 0.80f)),
                 elevation = cardElevation(),
 
                 ) {
@@ -78,11 +78,17 @@ fun ItemList(
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold
                         )
-                        HorizontalDivider(Modifier.padding(vertical = 5.dp))
+                        HorizontalDivider(
+                            Modifier.padding(vertical = 5.dp),
+                            color = GrayAsh.copy(alpha = 0.5f)
+                        )
 
                         Text(text = item.todoText, Modifier.padding(vertical = 5.dp))
 
-                        HorizontalDivider(Modifier.padding(vertical = 5.dp))
+                        HorizontalDivider(
+                            Modifier.padding(vertical = 5.dp),
+                            color = GrayAsh.copy(alpha = 0.5f)
+                        )
 
                         Row {
                             Text(
@@ -111,7 +117,7 @@ fun ItemList(
                                 modifier = Modifier.scale(1.0f),
                                 painter = painterResource(id = R.drawable.baseline_archive_24),
                                 contentDescription = "Archive",
-                                colorFilter = ColorFilter.tint(Blue),
+                                colorFilter = ColorFilter.tint(GrayAsh),
                             )
                         }
                     }

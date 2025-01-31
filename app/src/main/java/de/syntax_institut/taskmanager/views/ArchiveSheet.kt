@@ -26,7 +26,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -36,14 +35,15 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import de.syntax_institut.taskmanager.R
 import de.syntax_institut.taskmanager.data.Todo
-import de.syntax_institut.taskmanager.ui.theme.Blue
 import de.syntax_institut.taskmanager.ui.theme.DarkRed
-import de.syntax_institut.taskmanager.ui.theme.WhiteAsh
+import de.syntax_institut.taskmanager.ui.theme.GrayAsh
+import de.syntax_institut.taskmanager.ui.theme.PanelColor
+import de.syntax_institut.taskmanager.ui.theme.White
 import de.syntax_institut.taskmanager.viewModels.TodoViewModel
 
 @Composable
 fun ArchiveSheet(
-    modifier: Modifier = Modifier.fillMaxSize(),
+    modifier: Modifier = Modifier,
     viewModel: TodoViewModel = viewModel(),
     onDismiss: () -> Unit = {},
 ) {
@@ -51,12 +51,14 @@ fun ArchiveSheet(
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(id = R.drawable.wallpaper),
+            painter = painterResource(id = R.drawable.japagirl),
             contentScale = ContentScale.Crop,
             contentDescription = "Wallpaper",
-            alpha = 0.3f,
+            alpha = 0.75f,
             modifier = Modifier.fillMaxSize()
         )
+
+
         Column(modifier = Modifier.fillMaxSize()) {
 
             Row(
@@ -64,17 +66,17 @@ fun ArchiveSheet(
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("Gesamtes Archiv löschen!", color = Color.Black, fontSize = 15.sp)
+                Text("Gesamtes Archiv löschen!", color = White, fontSize = 15.sp)
                 IconButton(
                     modifier = Modifier.scale(1.5f),
                     onClick = {
-                    viewModel.deleteArchived(todoListArchived)
-                    onDismiss()
-                }) {
+                        viewModel.deleteArchived(todoListArchived)
+                        onDismiss()
+                    }) {
                     Image(
                         painter = painterResource(id = R.drawable.baseline_delete_forever_24),
                         contentDescription = "Close",
-                        colorFilter = ColorFilter.tint(DarkRed)
+                        colorFilter = ColorFilter.tint(White)
                     )
                 }
             }
@@ -92,8 +94,8 @@ fun ArchiveSheet(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(vertical = 5.dp),
-                        shape = RoundedCornerShape(5.dp),
-                        colors = CardDefaults.cardColors(WhiteAsh.copy(alpha = 0.8f)),
+                        shape = RoundedCornerShape(15.dp),
+                        colors = CardDefaults.cardColors(PanelColor.copy(alpha = 0.85f)),
                         elevation = cardElevation(),
 
                         ) {
@@ -109,11 +111,17 @@ fun ArchiveSheet(
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight.Bold
                                 )
-                                HorizontalDivider(Modifier.padding(vertical = 5.dp))
+                                HorizontalDivider(
+                                    Modifier.padding(vertical = 5.dp),
+                                    color = GrayAsh
+                                )
 
                                 Text(text = item.todoText, Modifier.padding(vertical = 5.dp))
 
-                                HorizontalDivider(Modifier.padding(vertical = 5.dp))
+                                HorizontalDivider(
+                                    Modifier.padding(vertical = 5.dp),
+                                    color = GrayAsh
+                                )
 
                                 Row {
                                     Text(
@@ -146,7 +154,7 @@ fun ArchiveSheet(
                                     Image(
                                         painter = painterResource(id = R.drawable.baseline_unarchive_24),
                                         contentDescription = "Unarchive",
-                                        colorFilter = ColorFilter.tint(Blue),
+                                        colorFilter = ColorFilter.tint(GrayAsh),
                                     )
                                 }
 
@@ -169,4 +177,5 @@ fun ArchiveSheet(
             }
         }
     }
+
 }
