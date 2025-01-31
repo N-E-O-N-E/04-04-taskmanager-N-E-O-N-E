@@ -18,7 +18,6 @@ private val DATASTORE_SORT_KEY = booleanPreferencesKey("sortList")
 
 class TodoViewModel(application: Application) : AndroidViewModel(application) {
 
-
     // Datenbank
     private val dao = TodoDatabase.getDatabase(application.applicationContext).toDoDatabase()
 

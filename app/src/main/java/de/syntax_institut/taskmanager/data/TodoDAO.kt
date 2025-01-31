@@ -23,6 +23,9 @@ interface TodoDAO {
     @Query("SELECT * from tbl_todoList WHERE isArchived = 1 ORDER BY date DESC")
     fun getAllArchivedItems(): Flow<List<Todo>>
 
+    @Query("SELECT * FROM tbl_todoList WHERE todoText LIKE '%' || :query || '%' AND isArchived = 0 ORDER BY date DESC")
+    fun searchTodos(query: String): Flow<List<Todo>>
+
     @Delete
     suspend fun delete(todo: Todo)
 

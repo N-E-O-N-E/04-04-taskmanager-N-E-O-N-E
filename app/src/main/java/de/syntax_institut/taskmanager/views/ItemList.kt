@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -35,29 +36,27 @@ import de.syntax_institut.taskmanager.viewModels.TodoViewModel
 fun ItemList(
     modifier: Modifier = Modifier,
     viewModel: TodoViewModel = viewModel(),
+    searchQuery: String
 ) {
     val todoList by viewModel.listEntries.collectAsState()
     val todoListSorted by viewModel.listEntriesSorted.collectAsState()
     val sortState by viewModel.getSortState.collectAsState(initial = false)
+
+    val filteredList = if (searchQuery.isBlank()) {
+        if (sortState) todoListSorted else todoList
+    } else {
+        (if (sortState) todoListSorted else todoList).filter {
+            it.todoTitle.contains(searchQuery, ignoreCase = true) ||
+                    it.todoText.contains(searchQuery, ignoreCase = true)
+        }
+    }
 
     LazyColumn(
         modifier = modifier
             .padding(top = 15.dp)
             .padding(horizontal = 15.dp)
     ) {
-        items(
-            if (sortState) {
-                todoListSorted.size
-            } else {
-                todoList.size
-            }
-
-        ) {
-            val item = if (sortState) {
-                todoListSorted[it]
-            } else {
-                todoList[it]
-            }
+        items(filteredList) { item ->
             Card(
                 modifier = Modifier
                     .fillMaxSize()

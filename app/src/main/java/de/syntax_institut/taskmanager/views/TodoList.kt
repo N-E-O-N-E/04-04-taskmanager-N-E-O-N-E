@@ -167,7 +167,7 @@ fun TodoList(
                         focusedContainerColor = White.copy(alpha = 0.5f),
                         unfocusedContainerColor = White.copy(alpha = 0.5f),
                     ),
-                    placeholder = { Text("Suche") }
+                    placeholder = { Text("Suche") },
                 )
             }
 
@@ -203,7 +203,7 @@ fun TodoList(
             modifier = Modifier.padding(0.dp)
         )
 
-        ItemList(modifier = modifier.weight(1f))
+        ItemList(modifier = modifier.weight(1f), searchQuery = searchTextInput)
 
         HorizontalDivider(
             thickness = 3.dp,
