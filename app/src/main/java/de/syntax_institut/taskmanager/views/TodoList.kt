@@ -55,8 +55,10 @@ fun TodoList(
     viewModel: TodoViewModel = viewModel()
 ) {
     var textInput by remember { mutableStateOf("") }
+    var searchTextInput by remember { mutableStateOf("") }
     val sortState by viewModel.getSortState.collectAsState(initial = false)
     var showArchiveSheetState by remember { mutableStateOf(false) }
+    var showSearchField by remember { mutableStateOf(false) }
 
     if (showArchiveSheetState) {
         ModalBottomSheet(
@@ -97,6 +99,28 @@ fun TodoList(
                 text = "QuickNotes"
             )
 
+
+            IconButton(
+                modifier = Modifier.padding(0.dp),
+                onClick = {
+                    if (showSearchField) {
+                        showSearchField = false
+                        searchTextInput = ""
+
+                    } else {
+                        showSearchField = true
+                    }
+                }
+            ) {
+                Image(
+                    modifier = Modifier.scale(1.6f),
+                    painter = painterResource(id = R.drawable.baseline_search_24),
+                    contentDescription = "Archive",
+                    colorFilter = ColorFilter.tint(ArchivIcon),
+                )
+            }
+
+
             IconButton(
                 modifier = Modifier.padding(0.dp),
                 onClick = {
@@ -127,23 +151,25 @@ fun TodoList(
         )
         {
 
-            OutlinedTextField(
-                value = textInput,
-                onValueChange = { textInput = it },
-                modifier = Modifier
-                    .width(180.dp)
-                    .height(55.dp)
-                    .align(Alignment.Top),
-                shape = ButtonDefaults.elevatedShape,
-                singleLine = false,
-                colors = outlinedTextFieldColors(
-                    focusedBorderColor = White,
-                    unfocusedBorderColor = White,
-                    focusedContainerColor = White.copy(alpha = 0.5f),
-                    unfocusedContainerColor = White.copy(alpha = 0.5f),
-                ),
-                placeholder = { Text("Suche") }
-            )
+            if (showSearchField) {
+                OutlinedTextField(
+                    value = searchTextInput,
+                    onValueChange = { searchTextInput = it },
+                    modifier = Modifier
+                        .width(180.dp)
+                        .height(55.dp)
+                        .align(Alignment.Top),
+                    shape = ButtonDefaults.elevatedShape,
+                    singleLine = false,
+                    colors = outlinedTextFieldColors(
+                        focusedBorderColor = White,
+                        unfocusedBorderColor = White,
+                        focusedContainerColor = White.copy(alpha = 0.5f),
+                        unfocusedContainerColor = White.copy(alpha = 0.5f),
+                    ),
+                    placeholder = { Text("Suche") }
+                )
+            }
 
             Spacer(modifier = Modifier.weight(1f))
 
