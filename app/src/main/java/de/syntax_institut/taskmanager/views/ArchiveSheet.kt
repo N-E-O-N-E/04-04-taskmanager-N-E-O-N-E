@@ -1,6 +1,7 @@
 package de.syntax_institut.taskmanager.views
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,6 +38,7 @@ import de.syntax_institut.taskmanager.R
 import de.syntax_institut.taskmanager.data.Todo
 import de.syntax_institut.taskmanager.ui.theme.DarkRed
 import de.syntax_institut.taskmanager.ui.theme.GrayAsh
+import de.syntax_institut.taskmanager.ui.theme.GrayAshDark
 import de.syntax_institut.taskmanager.ui.theme.PanelColor
 import de.syntax_institut.taskmanager.ui.theme.White
 import de.syntax_institut.taskmanager.viewModels.TodoViewModel
@@ -49,15 +51,16 @@ fun ArchiveSheet(
 ) {
     val todoListArchived by viewModel.listArchivedEntries.collectAsState()
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(color = GrayAshDark)) {
         Image(
             painter = painterResource(id = R.drawable.japagirl),
             contentScale = ContentScale.Crop,
             contentDescription = "Wallpaper",
-            alpha = 0.75f,
+            alpha = 0.20f,
             modifier = Modifier.fillMaxSize()
         )
-
 
         Column(modifier = Modifier.fillMaxSize()) {
 

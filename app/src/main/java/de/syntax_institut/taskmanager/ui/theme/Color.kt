@@ -3,6 +3,7 @@ package de.syntax_institut.taskmanager.ui.theme
 import androidx.compose.ui.graphics.Color
 
 val GrayAsh = Color(0xFF343B42)
+val GrayAshDark = Color(0xFF272A2F)
 val White = Color(0xFFFFFFFF)
 val Black = Color(0xFF000000)
 

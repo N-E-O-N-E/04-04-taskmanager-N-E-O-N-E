@@ -58,7 +58,9 @@ fun TodoList(
     var searchTextInput by remember { mutableStateOf("") }
     val sortState by viewModel.getSortState.collectAsState(initial = false)
     var showArchiveSheetState by remember { mutableStateOf(false) }
+    var showEditSheetState by remember { mutableStateOf(false) }
     var showSearchField by remember { mutableStateOf(false) }
+    var selectedItemForSheet by remember { mutableStateOf<Todo?>(null) }
 
     if (showArchiveSheetState) {
         ModalBottomSheet(
@@ -71,6 +73,21 @@ fun TodoList(
                     .fillMaxHeight(0.8f)
             ) {
                 ArchiveSheet(onDismiss = { showArchiveSheetState = false })
+            }
+        }
+    }
+
+    if (showEditSheetState) {
+        ModalBottomSheet(
+            onDismissRequest = { showEditSheetState = false },
+            sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.4f)
+            ) {
+                EditSheet(modifier = Modifier, selectedTodo = selectedItemForSheet)
             }
         }
     }
@@ -209,7 +226,10 @@ fun TodoList(
             modifier = Modifier.padding(0.dp)
         )
 
-        ItemList(modifier = modifier.weight(1f), searchQuery = searchTextInput)
+        ItemList(
+            modifier = modifier.weight(1f),
+            searchQuery = searchTextInput,
+            openEditSheet = { showEditSheetState = true; selectedItemForSheet = it })
 
         HorizontalDivider(
             thickness = 3.dp,
@@ -239,7 +259,7 @@ fun TodoList(
                     focusedContainerColor = GrayAsh.copy(alpha = 0.5f),
                     unfocusedContainerColor = GrayAsh.copy(alpha = 0.5f),
                 ),
-                placeholder = { Text("QuickNote hinzufügen") }
+                placeholder = { Text("KatanaNote hinzufügen") }
             )
             ElevatedButton(
                 onClick = {

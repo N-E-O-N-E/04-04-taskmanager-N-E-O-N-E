@@ -36,7 +36,8 @@ import de.syntax_institut.taskmanager.viewModels.TodoViewModel
 fun ItemList(
     modifier: Modifier = Modifier,
     viewModel: TodoViewModel = viewModel(),
-    searchQuery: String
+    searchQuery: String,
+    openEditSheet: (item: Todo) -> Unit,
 ) {
     val todoList by viewModel.listEntries.collectAsState()
     val todoListSorted by viewModel.listEntriesSorted.collectAsState()
@@ -64,7 +65,7 @@ fun ItemList(
                 shape = RoundedCornerShape(15.dp),
                 colors = CardDefaults.cardColors(PanelColor.copy(alpha = 0.80f)),
                 elevation = cardElevation(),
-
+                onClick = { openEditSheet(item) },
                 ) {
                 Row(
                     modifier = Modifier
