@@ -117,7 +117,7 @@ fun TodoList(
                 fontSize = 50.sp,
                 fontWeight = FontWeight.Bold,
                 color = PanelColor,
-                text = "Katana Notes "
+                text = "KatanaNote"
             )
 
             IconButton(modifier = Modifier.padding(0.dp), onClick = {

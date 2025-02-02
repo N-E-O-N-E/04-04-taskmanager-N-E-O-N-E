@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import de.syntax_institut.taskmanager.R
 import de.syntax_institut.taskmanager.data.Todo
+import de.syntax_institut.taskmanager.ui.theme.Black
 import de.syntax_institut.taskmanager.ui.theme.GrayAsh
 import de.syntax_institut.taskmanager.ui.theme.PanelColor
 import de.syntax_institut.taskmanager.viewModels.TodoViewModel
@@ -54,6 +55,7 @@ fun ItemList(
 
     LazyColumn(
         modifier = modifier
+
             .padding(horizontal = 10.dp)
     ) {
         items(filteredList) { item ->
@@ -75,6 +77,7 @@ fun ItemList(
                     Column(modifier = Modifier.fillMaxWidth(0.9f)) {
                         Text(
                             text = item.todoTitle,
+                            color = Black,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -83,7 +86,11 @@ fun ItemList(
                             color = GrayAsh.copy(alpha = 0.5f)
                         )
 
-                        Text(text = item.todoText, Modifier.padding(vertical = 5.dp))
+                        Text(
+                            text = item.todoText,
+                            color = Black,
+                            fontSize = 16.sp,
+                        )
 
                         HorizontalDivider(
                             Modifier.padding(vertical = 5.dp),
@@ -93,6 +100,7 @@ fun ItemList(
                         Row {
                             Text(
                                 text = "Erstellt am: ${item.date}",
+                                color = Black,
                                 fontSize = 12.sp
                             )
                         }

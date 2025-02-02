@@ -38,9 +38,7 @@ class MainActivity : ComponentActivity() {
                             contentScale = ContentScale.Crop,
                             contentDescription = "Wallpaper",
                             modifier = Modifier
-                                .fillMaxSize()
-                                .blur(6.dp),
-                            alpha = 0.9f
+                                .fillMaxSize(),
                         )
                         TodoList(
                             modifier = Modifier

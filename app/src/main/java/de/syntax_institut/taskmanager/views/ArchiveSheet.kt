@@ -26,7 +26,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
@@ -37,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import de.syntax_institut.taskmanager.R
 import de.syntax_institut.taskmanager.data.Todo
+import de.syntax_institut.taskmanager.ui.theme.Black
 import de.syntax_institut.taskmanager.ui.theme.DarkRed
 import de.syntax_institut.taskmanager.ui.theme.GrayAsh
 import de.syntax_institut.taskmanager.ui.theme.GrayAshDark
@@ -52,9 +52,11 @@ fun ArchiveSheet(
 ) {
     val todoListArchived by viewModel.listArchivedEntries.collectAsState()
 
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(color = GrayAshDark)) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = GrayAshDark)
+    ) {
         Image(
             painter = painterResource(id = R.drawable.japagirl),
             contentScale = ContentScale.Crop,
@@ -62,7 +64,6 @@ fun ArchiveSheet(
             alpha = 0.20f,
             modifier = Modifier
                 .fillMaxSize()
-                .blur(6.dp)
         )
 
         Column(modifier = Modifier.fillMaxSize()) {
@@ -113,15 +114,19 @@ fun ArchiveSheet(
                             Column(modifier = Modifier.fillMaxWidth(0.9f)) {
                                 Text(
                                     text = item.todoTitle,
+                                    color = Black,
                                     fontSize = 16.sp,
-                                    fontWeight = FontWeight.Bold
+                                    fontWeight = FontWeight.Bold,
                                 )
                                 HorizontalDivider(
                                     Modifier.padding(vertical = 5.dp),
                                     color = GrayAsh
                                 )
 
-                                Text(text = item.todoText, Modifier.padding(vertical = 5.dp))
+                                Text(
+                                    text = item.todoText,
+                                    color = Black,
+                                )
 
                                 HorizontalDivider(
                                     Modifier.padding(vertical = 5.dp),
@@ -131,7 +136,8 @@ fun ArchiveSheet(
                                 Row {
                                     Text(
                                         text = "Erstellt am: ${item.date}",
-                                        fontSize = 12.sp
+                                        fontSize = 12.sp,
+                                        color = Black
                                     )
                                     Spacer(modifier = Modifier.weight(1f))
                                     Text(
