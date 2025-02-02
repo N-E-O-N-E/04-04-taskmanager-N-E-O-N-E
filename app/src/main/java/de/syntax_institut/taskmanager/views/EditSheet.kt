@@ -19,6 +19,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import de.syntax_institut.taskmanager.data.Todo
@@ -51,52 +52,11 @@ fun EditSheet(
             .fillMaxWidth()
             .padding(20.dp)) {
 
-            OutlinedTextField(
-                value = newTitle,
-                onValueChange = { newTitle = it },
-                modifier = Modifier
-                    .padding(vertical = 10.dp)
-                    .fillMaxWidth(),
-                shape = ButtonDefaults.elevatedShape,
-                singleLine = false,
-                label = { Text(text = "Titel", color = White) },
-                colors = outlinedTextFieldColors(
-                    focusedPlaceholderColor = PanelColor,
-                    unfocusedPlaceholderColor = PanelColor,
-                    focusedTextColor = PanelColor,
-                    unfocusedTextColor = PanelColor,
-                    focusedBorderColor = PanelColor,
-                    unfocusedBorderColor = PanelColor,
-                    focusedContainerColor = GrayAsh.copy(alpha = 0.5f),
-                    unfocusedContainerColor = GrayAsh.copy(alpha = 0.5f),
-                )
-            )
-
-            OutlinedTextField(
-                value = newText,
-                onValueChange = { newText = it },
-                modifier = Modifier
-                    .padding(vertical = 10.dp)
-                    .fillMaxWidth(),
-                shape = ButtonDefaults.elevatedShape,
-                singleLine = false,
-                label = { Text(text = "Notiztext", color = White) },
-                colors = outlinedTextFieldColors(
-                    focusedPlaceholderColor = PanelColor,
-                    unfocusedPlaceholderColor = PanelColor,
-                    focusedTextColor = PanelColor,
-                    unfocusedTextColor = PanelColor,
-                    focusedBorderColor = PanelColor,
-                    unfocusedBorderColor = PanelColor,
-                    focusedContainerColor = GrayAsh.copy(alpha = 0.5f),
-                    unfocusedContainerColor = GrayAsh.copy(alpha = 0.5f),
-                )
-            )
             ElevatedButton(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 10.dp),
-                colors = ButtonDefaults.buttonColors(GrayAsh),
+                    .padding(vertical = 10.dp),
+                colors = ButtonDefaults.buttonColors(PanelColor),
                 border = BorderStroke(1.dp, PanelColor),
                 elevation = ButtonDefaults.buttonElevation(4.dp),
                 onClick = {
@@ -114,8 +74,52 @@ fun EditSheet(
                     )
                     onDismiss()
                 }) {
-                Text("Speichern")
+                Text("ÄNDERUNG SPEICHERN", color = GrayAshDark)
             }
+
+            OutlinedTextField(
+                value = newTitle,
+                onValueChange = { newTitle = it },
+                modifier = Modifier
+                    .padding(vertical = 10.dp)
+                    .fillMaxWidth(),
+                shape = RectangleShape,
+                singleLine = true,
+                label = { Text(text = "TITEL", color = White) },
+                colors = outlinedTextFieldColors(
+                    focusedPlaceholderColor = PanelColor,
+                    unfocusedPlaceholderColor = PanelColor,
+                    focusedTextColor = PanelColor,
+                    unfocusedTextColor = PanelColor,
+                    focusedBorderColor = PanelColor,
+                    unfocusedBorderColor = PanelColor,
+                    focusedContainerColor = GrayAsh,
+                    unfocusedContainerColor = GrayAsh,
+                )
+            )
+
+            OutlinedTextField(
+                value = newText,
+                onValueChange = { newText = it },
+                modifier = Modifier
+                    .padding(vertical = 10.dp)
+                    .fillMaxWidth(),
+                shape = RectangleShape,
+                singleLine = false,
+                label = { Text(text = "NOTIZ", color = White) },
+                colors = outlinedTextFieldColors(
+                    focusedPlaceholderColor = PanelColor,
+                    unfocusedPlaceholderColor = PanelColor,
+                    focusedTextColor = PanelColor,
+                    unfocusedTextColor = PanelColor,
+                    focusedBorderColor = PanelColor,
+                    unfocusedBorderColor = PanelColor,
+                    focusedContainerColor = GrayAsh,
+                    unfocusedContainerColor = GrayAsh,
+                )
+            )
         }
     }
 }
+
+

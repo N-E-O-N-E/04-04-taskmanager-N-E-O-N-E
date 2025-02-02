@@ -26,6 +26,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
@@ -59,11 +60,12 @@ fun ArchiveSheet(
             contentScale = ContentScale.Crop,
             contentDescription = "Wallpaper",
             alpha = 0.20f,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .blur(6.dp)
         )
 
         Column(modifier = Modifier.fillMaxSize()) {
-
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End,
@@ -87,8 +89,8 @@ fun ArchiveSheet(
             LazyColumn(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(top = 15.dp)
-                    .padding(horizontal = 15.dp)
+                    .padding(top = 10.dp)
+                    .padding(horizontal = 10.dp)
             ) {
                 items(todoListArchived.size) {
                     val item = todoListArchived[it]
@@ -97,7 +99,7 @@ fun ArchiveSheet(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(vertical = 5.dp),
-                        shape = RoundedCornerShape(15.dp),
+                        shape = RoundedCornerShape(10.dp),
                         colors = CardDefaults.cardColors(PanelColor.copy(alpha = 0.85f)),
                         elevation = cardElevation(),
 
@@ -133,7 +135,7 @@ fun ArchiveSheet(
                                     )
                                     Spacer(modifier = Modifier.weight(1f))
                                     Text(
-                                        text = if (item.isArchived) "Archiviert" else " ",
+                                        text = if (item.isArchived) "Entgültig löschen" else " ",
                                         fontSize = 12.sp, color = DarkRed,
                                     )
                                 }

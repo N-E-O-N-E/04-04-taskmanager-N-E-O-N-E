@@ -68,4 +68,87 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
     fun saveSortState(value: Boolean) {
         viewModelScope.launch { dataStore.edit { it[DATASTORE_SORT_KEY] = value } }
     }
+
+    // KatanaTitle generieren
+
+    fun generateTitle(textInput: String): String {
+        val cleanedInput = textInput.replace(Regex("[^\\w\\s]"), "").trim()
+        val stopwordsLongerThan4 = setOf(
+            "allerdings",
+            "möglicherweise",
+            "normalerweise",
+            "wahrscheinlich",
+            "zwischendurch",
+            "deswegen",
+            "vielleicht",
+            "dennoch",
+            "außerdem",
+            "eigentlich",
+            "womöglich",
+            "insgeheim",
+            "obwohl",
+            "obgleich",
+            "dementsprechend",
+            "voraussichtlich",
+            "letztendlich",
+            "manchmal",
+            "insofern",
+            "unbedingt",
+            "beispielsweise",
+            "ohnehin",
+            "gegebenenfalls",
+            "typischerweise",
+            "stattdessen",
+            "theoretisch",
+            "praktischerweise",
+            "irgendwann",
+            "irgendwie",
+            "mittlerweile",
+            "vermeintlich",
+            "gleichwohl",
+            "buchstäblich",
+            "nämlicherweise",
+            "eventuell",
+            "selbstverständlich",
+            "hierdurch",
+            "weshalb",
+            "unabsichtlich",
+            "fahrlässig",
+            "anstandslos",
+            "exemplarisch",
+            "ausschließlich",
+            "vorsorglich",
+            "grundsätzlich",
+            "insbesondere",
+            "gleichzeitig",
+            "jedenfalls",
+            "zufälligerweise",
+            "unbemerkt",
+            "plötzlich",
+            "nachträglich",
+            "hinlänglich",
+            "fälschlicherweise",
+            "unnötigerweise",
+            "keineswegs",
+            "vollständig",
+            "zeitweise",
+            "teilweise",
+            "offenbar",
+            "ernsthafte",
+            "vorsichtshalber",
+            "überzeugt",
+            "üblicherweise",
+            "situationsbedingt",
+        )
+
+        val significantWords = cleanedInput
+            .split(Regex("\\s+"))
+            .map { it.trim() }
+            .filter { it.length > 4 && it.lowercase() !in stopwordsLongerThan4 }
+
+        return if (significantWords.isEmpty())
+            cleanedInput.take(30)
+        else
+            significantWords.take(5).joinToString(" ").take(35)
+    }
 }

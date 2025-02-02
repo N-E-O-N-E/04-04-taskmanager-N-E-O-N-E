@@ -20,9 +20,9 @@ import androidx.compose.material3.ExposedDropdownMenuDefaults.outlinedTextFieldC
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -51,15 +52,14 @@ import java.time.format.DateTimeFormatter
 @ExperimentalMaterial3Api
 @Composable
 fun TodoList(
-    modifier: Modifier,
-    viewModel: TodoViewModel = viewModel()
+    modifier: Modifier, viewModel: TodoViewModel = viewModel()
 ) {
     var textInput by remember { mutableStateOf("") }
     var searchTextInput by remember { mutableStateOf("") }
     val sortState by viewModel.getSortState.collectAsState(initial = false)
     var showArchiveSheetState by remember { mutableStateOf(false) }
     var showEditSheetState by remember { mutableStateOf(false) }
-    var showSearchField by remember { mutableStateOf(false) }
+    var showMenue by remember { mutableStateOf(false) }
     var selectedItemForSheet by remember { mutableStateOf<Todo?>(null) }
 
     if (showArchiveSheetState) {
@@ -70,7 +70,7 @@ fun TodoList(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.8f)
+                    .fillMaxHeight(0.85f)
             ) {
                 ArchiveSheet(onDismiss = { showArchiveSheetState = false })
             }
@@ -79,13 +79,14 @@ fun TodoList(
 
     if (showEditSheetState) {
         ModalBottomSheet(
+            modifier = Modifier,
             onDismissRequest = { showEditSheetState = false },
             sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
         ) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.35f)
+                    .fillMaxHeight(0.55f)
             ) {
                 EditSheet(
                     modifier = Modifier,
@@ -107,8 +108,7 @@ fun TodoList(
                 .padding(horizontal = 15.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.End
-        )
-        {
+        ) {
             Text(
                 modifier = Modifier
                     .weight(1f)
@@ -120,34 +120,9 @@ fun TodoList(
                 text = "Katana Notes "
             )
 
-
-            IconButton(
-                modifier = Modifier.padding(0.dp),
-                onClick = {
-                    if (showSearchField) {
-                        showSearchField = false
-                        searchTextInput = ""
-
-                    } else {
-                        showSearchField = true
-                    }
-                }
-            ) {
-                Image(
-                    modifier = Modifier.scale(1.4f),
-                    painter = painterResource(id = R.drawable.baseline_search_24),
-                    contentDescription = "Archive",
-                    colorFilter = ColorFilter.tint(PanelColor),
-                )
-            }
-
-
-            IconButton(
-                modifier = Modifier.padding(0.dp),
-                onClick = {
-                    showArchiveSheetState = true
-                }
-            ) {
+            IconButton(modifier = Modifier.padding(0.dp), onClick = {
+                showArchiveSheetState = true
+            }) {
                 Image(
                     modifier = Modifier.scale(1.4f),
                     painter = painterResource(id = R.drawable.baseline_archive_24),
@@ -155,6 +130,24 @@ fun TodoList(
                     colorFilter = ColorFilter.tint(PanelColor),
                 )
             }
+
+            IconButton(modifier = Modifier.padding(0.dp), onClick = {
+                if (showMenue) {
+                    showMenue = false
+                    searchTextInput = ""
+
+                } else {
+                    showMenue = true
+                }
+            }) {
+                Image(
+                    modifier = Modifier.scale(1.4f),
+                    painter = painterResource(id = R.drawable.baseline_filter_alt_24),
+                    contentDescription = "Archive",
+                    colorFilter = ColorFilter.tint(PanelColor),
+                )
+            }
+
         }
 
         HorizontalDivider(
@@ -163,24 +156,26 @@ fun TodoList(
             modifier = Modifier.padding(0.dp)
         )
 
+        if (showMenue) {
         Row(
             modifier = Modifier
                 .fillMaxWidth(1f)
+                .padding(vertical = 5.dp)
+                .height(55.dp)
                 .padding(horizontal = 15.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.End
-        )
-        {
+        ) {
 
-            if (showSearchField) {
-                OutlinedTextField(
+
+            TextField(
                     value = searchTextInput,
                     onValueChange = { searchTextInput = it },
                     modifier = Modifier
-                        .width(180.dp)
+                        .width(190.dp)
                         .height(55.dp)
                         .align(Alignment.Top),
-                    shape = ButtonDefaults.elevatedShape,
+                shape = RectangleShape,
                     singleLine = false,
                     colors = outlinedTextFieldColors(
                         focusedPlaceholderColor = PanelColor,
@@ -194,7 +189,6 @@ fun TodoList(
                     ),
                     placeholder = { Text("Suche") },
                 )
-            }
 
             Spacer(modifier = Modifier.weight(1f))
 
@@ -222,12 +216,13 @@ fun TodoList(
                 colorFilter = ColorFilter.tint(PanelColor)
             )
         }
+        }
 
-        HorizontalDivider(
-            thickness = 1.dp,
-            color = PanelColor.copy(alpha = 0.5f),
-            modifier = Modifier.padding(0.dp)
-        )
+        /* HorizontalDivider(
+         thickness = 1.dp,
+         color = PanelColor.copy(alpha = 0.5f),
+         modifier = Modifier.padding(0.dp)
+     )*/
 
         ItemList(
             modifier = modifier.weight(1f),
@@ -246,11 +241,10 @@ fun TodoList(
                 .padding(10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            OutlinedTextField(
-                value = textInput,
+            TextField(value = textInput,
                 onValueChange = { textInput = it },
                 modifier = Modifier.fillMaxWidth(0.65f),
-                shape = ButtonDefaults.elevatedShape,
+                shape = RectangleShape,
                 singleLine = false,
                 colors = outlinedTextFieldColors(
                     focusedPlaceholderColor = PanelColor,
@@ -262,22 +256,16 @@ fun TodoList(
                     focusedContainerColor = GrayAsh.copy(alpha = 0.5f),
                     unfocusedContainerColor = GrayAsh.copy(alpha = 0.5f),
                 ),
-                placeholder = { Text("KatanaNote hinzufügen") }
-            )
+                placeholder = { Text("KatanaNote hinzufügen") })
             Spacer(modifier = Modifier.weight(1f))
             ElevatedButton(
                 onClick = {
                     var localDateTimeNow =
                         LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))
 
-                    val filteredTitle = textInput.split(" ")
-                        .filter { it.length > 4 }
-                        .joinToString(" ")
-                        .take(35)
-
                     viewModel.insert(
                         Todo(
-                            todoTitle = filteredTitle.uppercase(),
+                            todoTitle = viewModel.generateTitle(textInput).uppercase(),
                             todoText = textInput,
                             date = localDateTimeNow,
                             isDone = false,

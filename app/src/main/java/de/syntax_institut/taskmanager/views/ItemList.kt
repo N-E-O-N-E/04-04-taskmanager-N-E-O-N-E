@@ -54,15 +54,14 @@ fun ItemList(
 
     LazyColumn(
         modifier = modifier
-            .padding(top = 15.dp)
-            .padding(horizontal = 15.dp)
+            .padding(horizontal = 10.dp)
     ) {
         items(filteredList) { item ->
             Card(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(vertical = 5.dp),
-                shape = RoundedCornerShape(15.dp),
+                shape = RoundedCornerShape(10.dp),
                 colors = CardDefaults.cardColors(PanelColor.copy(alpha = 0.80f)),
                 elevation = cardElevation(),
                 onClick = { openEditSheet(item) },
