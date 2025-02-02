@@ -87,7 +87,10 @@ fun TodoList(
                     .fillMaxWidth()
                     .fillMaxHeight(0.4f)
             ) {
-                EditSheet(modifier = Modifier, selectedTodo = selectedItemForSheet)
+                EditSheet(
+                    modifier = Modifier,
+                    selectedTodo = selectedItemForSheet,
+                    onDismiss = { showEditSheetState = false })
             }
         }
     }
