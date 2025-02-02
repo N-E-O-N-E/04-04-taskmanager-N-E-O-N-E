@@ -85,7 +85,7 @@ fun TodoList(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.4f)
+                    .fillMaxHeight(0.35f)
             ) {
                 EditSheet(
                     modifier = Modifier,
@@ -249,7 +249,7 @@ fun TodoList(
             OutlinedTextField(
                 value = textInput,
                 onValueChange = { textInput = it },
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.fillMaxWidth(0.65f),
                 shape = ButtonDefaults.elevatedShape,
                 singleLine = false,
                 colors = outlinedTextFieldColors(
@@ -264,6 +264,7 @@ fun TodoList(
                 ),
                 placeholder = { Text("KatanaNote hinzufügen") }
             )
+            Spacer(modifier = Modifier.weight(1f))
             ElevatedButton(
                 onClick = {
                     var localDateTimeNow =
@@ -285,7 +286,9 @@ fun TodoList(
                     )
                     textInput = ""
                 },
-                modifier = Modifier.padding(start = 8.dp),
+                modifier = Modifier
+                    .padding(start = 8.dp)
+                    .fillMaxWidth(1f),
                 colors = ButtonDefaults.buttonColors(GrayAsh),
                 border = BorderStroke(1.dp, PanelColor),
                 elevation = ButtonDefaults.buttonElevation(4.dp)
