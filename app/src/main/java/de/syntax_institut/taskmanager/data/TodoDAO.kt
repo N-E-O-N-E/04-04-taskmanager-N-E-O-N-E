@@ -14,13 +14,13 @@ interface TodoDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(todo: Todo)
 
-    @Query("SELECT * from tbl_todoList WHERE isArchived = 0 ORDER BY date ASC")
+    @Query("SELECT * from tbl_katanaNote1 WHERE isArchived = 0 ORDER BY date ASC")
     fun getAllItems(): Flow<List<Todo>>
 
-    @Query("SELECT * from tbl_todoList WHERE isArchived = 0 ORDER BY date DESC")
+    @Query("SELECT * from tbl_katanaNote1 WHERE isArchived = 0 ORDER BY date DESC")
     fun getAllItemsSorted(): Flow<List<Todo>>
 
-    @Query("SELECT * from tbl_todoList WHERE isArchived = 1 ORDER BY date DESC")
+    @Query("SELECT * from tbl_katanaNote1 WHERE isArchived = 1 ORDER BY date DESC")
     fun getAllArchivedItems(): Flow<List<Todo>>
 
     @Delete

@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "de.neone.katananote"
+    namespace = "de.syntax_institut.taskmanager"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "de.neone.katananote"
+        applicationId = "de.syntax_institut.taskmanager"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
