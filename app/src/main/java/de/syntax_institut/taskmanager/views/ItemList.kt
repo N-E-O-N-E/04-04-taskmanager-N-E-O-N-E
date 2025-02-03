@@ -15,6 +15,7 @@ import androidx.compose.material3.CardDefaults.cardElevation
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -24,7 +25,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import de.syntax_institut.taskmanager.R
 import de.syntax_institut.taskmanager.data.Todo
@@ -77,9 +77,8 @@ fun ItemList(
                     Column(modifier = Modifier.fillMaxWidth(0.9f)) {
                         Text(
                             text = item.todoTitle,
-                            color = Black,
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold
+                            style = Typography().titleMedium, fontWeight = FontWeight.Bold,
+                            color = Black
                         )
                         HorizontalDivider(
                             Modifier.padding(vertical = 5.dp),
@@ -88,8 +87,8 @@ fun ItemList(
 
                         Text(
                             text = item.todoText,
-                            color = Black,
-                            fontSize = 16.sp,
+                            style = Typography().bodyLarge,
+                            color = Black
                         )
 
                         HorizontalDivider(
@@ -100,8 +99,8 @@ fun ItemList(
                         Row {
                             Text(
                                 text = "Erstellt am: ${item.date}",
-                                color = Black,
-                                fontSize = 12.sp
+                                style = Typography().labelSmall,
+                                color = Black
                             )
                         }
                     }

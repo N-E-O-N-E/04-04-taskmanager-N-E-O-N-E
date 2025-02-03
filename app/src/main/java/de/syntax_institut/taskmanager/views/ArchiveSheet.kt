@@ -21,6 +21,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -114,9 +115,8 @@ fun ArchiveSheet(
                             Column(modifier = Modifier.fillMaxWidth(0.9f)) {
                                 Text(
                                     text = item.todoTitle,
-                                    color = Black,
-                                    fontSize = 16.sp,
-                                    fontWeight = FontWeight.Bold,
+                                    style = Typography().titleMedium, fontWeight = FontWeight.Bold,
+                                    color = Black
                                 )
                                 HorizontalDivider(
                                     Modifier.padding(vertical = 5.dp),
@@ -125,7 +125,8 @@ fun ArchiveSheet(
 
                                 Text(
                                     text = item.todoText,
-                                    color = Black,
+                                    style = Typography().bodyLarge,
+                                    color = Black
                                 )
 
                                 HorizontalDivider(
@@ -136,13 +137,14 @@ fun ArchiveSheet(
                                 Row {
                                     Text(
                                         text = "Erstellt am: ${item.date}",
-                                        fontSize = 12.sp,
+                                        style = Typography().labelSmall,
                                         color = Black
                                     )
                                     Spacer(modifier = Modifier.weight(1f))
                                     Text(
                                         text = if (item.isArchived) "Entgültig löschen" else " ",
-                                        fontSize = 12.sp, color = DarkRed,
+                                        style = Typography().labelSmall,
+                                        color = DarkRed,
                                     )
                                 }
                             }

@@ -86,7 +86,7 @@ fun TodoList(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.55f)
+                    .fillMaxHeight(0.65f)
             ) {
                 EditSheet(
                     modifier = Modifier,
